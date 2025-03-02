@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.utils import secure_filename
-from .service import process_pdf
+from .utils import process_pdf
+from .service import parse_pdf
 import os
+import json
 
 quiz_bp = Blueprint('quiz_bp', __name__)
 
@@ -11,6 +13,10 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@quiz_bp.route('/health', methods=['GET'])
+def health():
+    return jsonify({"message": "Quiz service is healthy"}), 200
 
 @quiz_bp.route('/import-quiz', methods=['POST'])
 def import_quiz():
@@ -29,7 +35,9 @@ def import_quiz():
         
         try:
             quiz_data = process_pdf(file_path)
-            return jsonify({"message": "Quiz imported successfully", "data": quiz_data}), 200
+            content = parse_pdf(quiz_data[0])
+            parsed_data = json.loads(content)
+            return jsonify({"message": "Quiz imported successfully", "data": parsed_data}), 200
         except Exception as e:
             return jsonify({"error": str(e)}), 500
         finally:
