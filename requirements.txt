@@ -1,0 +1,8 @@
+transformers
+torch
+PyMuPDF
+accelerate
+groq
+dotenv
+Werkzeug
+Flask-Limiter
