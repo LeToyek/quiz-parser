@@ -35,7 +35,6 @@ def import_quiz():
         
         try:
             quiz_data = process_pdf(file_path)
-            return jsonify({"message": "Quiz imported successfully", "data": quiz_data}), 200
             content = parse_pdf(quiz_data[0])
             parsed_data = json.loads(content)
             return jsonify({"message": "Quiz imported successfully", "data": parsed_data}), 200
