@@ -7,7 +7,7 @@ import json
 
 quiz_bp = Blueprint('quiz_bp', __name__)
 
-ALLOWED_EXTENSIONS = {'pdf'}
+ALLOWED_EXTENSIONS = {'pdf','png','jpg','jpeg'}
 UPLOAD_FOLDER = '/tmp/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -35,6 +35,7 @@ def import_quiz():
         
         try:
             quiz_data = process_pdf(file_path)
+            return jsonify({"message": "Quiz imported successfully", "data": quiz_data}), 200
             content = parse_pdf(quiz_data[0])
             parsed_data = json.loads(content)
             return jsonify({"message": "Quiz imported successfully", "data": parsed_data}), 200
