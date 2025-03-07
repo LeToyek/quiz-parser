@@ -6,3 +6,5 @@ public/
 *.log
 trials/
 ssl
+server.crt
+server.key
