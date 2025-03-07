@@ -10,7 +10,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /etc/ssl/certs /etc/ssl/private
+RUN mkdir -p /etc/ssl/certs /etc/ssl/private /etc/nginx/conf.d
 
 # Generate a self-signed SSL certificate
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
@@ -28,7 +28,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Copy the Nginx configuration file
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf 
 
 # Set environment variables
 ENV FLASK_APP=app.py
