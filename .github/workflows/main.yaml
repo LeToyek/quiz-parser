@@ -1,0 +1,39 @@
+name: Development
+on : 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  
+  workflow_dispatch:
+
+jobs:
+  # build-image:
+  #   name: Build Docker Image
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v2
+  #   - name: Build Docker Image
+  #     run: docker build -t asnindonesia/quiz-importer:latest .
+  #   - name: Push Docker Image
+  #     run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+  #   - run: docker push asnindonesia/quiz-importer:latest
+  build-image:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Login to DockerHub
+      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+    - name: Build and Push Docker Image with Cache
+      uses: whoan/docker-build-with-cache-action@master
+      with:
+        image_name: asnindonesia/quiz-importer
+        image_tag: latest
+        registry: docker.io
+        push_image: true
+        build_extra_args: "--no-cache"
