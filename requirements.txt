@@ -4,3 +4,5 @@ dotenv
 Werkzeug
 Flask-Limiter
 Flask-CORS
+requests
+Flask
