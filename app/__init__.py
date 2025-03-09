@@ -20,6 +20,10 @@ def create_app():
                     "http://localhost:8000",
                     "http://localhost",
                     "https://asn.trialdyk.my.id",
+                    "http://103.175.220.122:8000",
+                    "https://103.175.220.122:8000",
+                    "https://asn-indonesia.com",
+                    "http://asn-indonesia.com",
                 ]
             }
         },
