@@ -24,6 +24,8 @@ def create_app():
                     "https://103.175.220.122:8000",
                     "https://asn-indonesia.com",
                     "http://asn-indonesia.com",
+                    "https://www.asn-indonesia.com",
+                    "http://www.asn-indonesia.com",
                 ]
             }
         },
